@@ -108,13 +108,11 @@ const RegisterForm = () => {
                     }
                     axios
                       .post(
-                        "http://localhost:8001/register/add-register",
+                        "https://registerappbackend.onrender.com/register/add-register",
                         formData
                       )
                       .then((res) => {
-                        if (res.status === 200) {
-                          navigate("/user-list");
-                        }
+                        navigate("/user-list");
                       })
                       .catch((err) => console.log(err));
                     setSubmitting(false);

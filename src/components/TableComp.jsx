@@ -44,7 +44,7 @@ const TableComp = () => {
   useEffect(() => {
     // dispatch(getRegister());
     axios
-      .get("http://localhost:8001/register/get-register")
+      .get("https://registerappbackend.onrender.com/register/get-register")
       .then((res) => {
         setUser(res.data);
       })
@@ -56,7 +56,7 @@ const TableComp = () => {
   console.log(user);
 
   return (
-    <section className="mt-2">
+    <section className="mt-2 mb-2">
       <Container>
         <Row lg={12} md={12} sm={12} xs={12}>
           <Col>
