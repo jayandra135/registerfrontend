@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { styled } from "@mui/material/styles";
@@ -13,8 +13,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
-import { getRegister } from "../redux/register/Action";
-
+//import { getRegister } from "../redux/register/Action";
+import axios from "axios";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -36,34 +36,31 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const TableComp = () => {
-  const dispatch = useDispatch();
-  const data = useSelector((state) => state.register);
-  const rows = data.registers;
+  //const dispatch = useDispatch();
+  // const data = useSelector((state) => state.register);
+  // const rows = data.registers;
   //console.log(data.isLoading);
+  const [user, setUser] = useState([]);
   useEffect(() => {
-    dispatch(getRegister());
+    // dispatch(getRegister());
+    axios
+      .get("http://localhost:8001/register/get-register")
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
-  console.log(rows?.data);
+  console.log(user);
 
-  // const downloadfile = (file) => {
-  //   const link = document.createElement("a");
-
-  //   // Set the href attribute to the file you want to download
-  //   link.href = "../../public/files/" + file; // Replace with the actual file URL
-
-  //   // Set the download attribute to specify the file name
-  //   link.download = file; // Replace with the desired file name
-
-  //   // Trigger a click event to start the download
-  //   link.click();
-  // };
   return (
     <section className="mt-2">
       <Container>
         <Row lg={12} md={12} sm={12} xs={12}>
           <Col>
-            {!rows.data ? (
+            {!user.data ? (
               <CircularProgress className="circular" />
             ) : (
               <TableContainer component={Paper}>
@@ -81,8 +78,8 @@ const TableComp = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rows.data &&
-                      rows.data.map((ele, index) => {
+                    {user.data &&
+                      user.data.map((ele, index) => {
                         return (
                           <StyledTableRow key={ele._id}>
                             <StyledTableCell

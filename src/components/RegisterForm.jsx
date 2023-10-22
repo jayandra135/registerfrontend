@@ -14,13 +14,14 @@ import "../App.css";
 import Button from "@mui/material/Button";
 
 import InputGroup from "react-bootstrap/InputGroup";
-import { useDispatch } from "react-redux";
-import { addRegister } from "../redux/register/Action";
+// import { useDispatch } from "react-redux";
+// import { addRegister } from "../redux/register/Action";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
+import axios from "axios";
 import * as Yup from "yup";
 const RegisterForm = () => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const navigate = useNavigate();
   const [check, setCheck] = useState([]);
 
@@ -47,11 +48,9 @@ const RegisterForm = () => {
         return true;
       }),
   });
-  const resetForm = (values) => {
-    values.resetForm();
-  };
+
   return (
-    <section className="register-section mt-3 mb-5">
+    <section className="register-section mt-3">
       <Container>
         <Row>
           <Col lg={3}></Col>
@@ -102,9 +101,22 @@ const RegisterForm = () => {
                   formData.append("resume", values.resume);
 
                   setTimeout(() => {
-                    dispatch(addRegister(formData)).then(() => {
+                    {
+                      /*  dispatch(addRegister(formData)).then(() => {
                       navigate("/user-list");
-                    });
+                    }); */
+                    }
+                    axios
+                      .post(
+                        "http://localhost:8001/register/add-register",
+                        formData
+                      )
+                      .then((res) => {
+                        if (res.status === 200) {
+                          navigate("/user-list");
+                        }
+                      })
+                      .catch((err) => console.log(err));
                     setSubmitting(false);
                   }, 400);
                 }}
@@ -157,7 +169,7 @@ const RegisterForm = () => {
                         {errors.name && touched.name && errors.name}
                       </span>
                     </div>
-                    <div className="d-flex flex-row justify-content-between w-100 flex-wrap">
+                    <div className="d-flex flex-row justify-content-between w-100 flex-wrap gap-2">
                       <div className="d-flex flex-column">
                         <FormLabel
                           id="demo-radio-buttons-group-label"
@@ -236,6 +248,8 @@ const RegisterForm = () => {
                           {errors.gender && touched.gender && errors.gender}
                         </span>
                       </div>
+                    </div>
+                    <div className="d-flex flex-column justify-content-start flex-wrap">
                       <div className="d-flex flex-column justify-content-start  ">
                         <FormLabel
                           id="demo-radio-buttons-group-label"
@@ -311,6 +325,7 @@ const RegisterForm = () => {
                           accept=".doc,.docx"
                           name="resume"
                           onBlur={handleBlur}
+                          className="resumeInput"
                           onChange={(e) => {
                             setFieldValue("resume", e.currentTarget.files[0]);
                           }}

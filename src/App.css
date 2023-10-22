@@ -42,9 +42,6 @@
 }
 
 
-.row>* {
-  padding: 0;
-}
 
 
 .buttons {
@@ -71,9 +68,7 @@
 
 .MuiInputBase-input {
   height: 1rem !important;
-  width: 280px !important;
-
-
+  width: 250px !important;
   padding: 15px;
 }
 
@@ -82,4 +77,45 @@
   background-color: #4e7cac;
   color: white;
   padding: 10px;
+}
+
+
+/* mobile width */
+
+@media screen and (max-width:576px) {
+  .MuiInputBase-input {
+    height: 1rem !important;
+    width: 170px !important;
+    padding: 15px;
+  }
+
+  .inputfield {
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1.2px solid #4e7cac;
+    padding: 15px;
+
+  }
+
+  .addressfield {
+    height: 60px;
+    width: 200px;
+    border-radius: 10px;
+    border: 1.2px solid #4e7cac;
+    padding: 15px;
+
+  }
+
+  .card-section {
+    background-color: #fff;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    height: auto;
+    border-radius: 20px 20px 0px 0px;
+  }
+
+  .resumeInput {
+    width: 200px;
+  }
+
 }
