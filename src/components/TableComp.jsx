@@ -109,7 +109,7 @@ const TableComp = () => {
                             </StyledTableCell>
                             <StyledTableCell align="center">
                               <Link
-                                to={`http://localhost:8001/uploads/${ele.resume}`}
+                                to={`https://registerappbackend.onrender.com/uploads/${ele.resume}`}
                                 className="downloadbtn"
                               >
                                 Download File
